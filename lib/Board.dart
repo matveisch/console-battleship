@@ -21,19 +21,31 @@ class Board {
   }
 
   void placeShip(int size, String axis, Map coordinates) {
+    // create new ship
     Ship ship = new Ship(size, axis, coordinates);
     ship.fillUpCoordinates();
+
+    // add new ship to array of all ships to be placed
     ships.add(ship);
 
 
     if (axis == 'x') {
-			for (int i = coordinates['x'], j = 0; j < size; i++, j++) {
-				board[coordinates['y']][i] = 1;
-			}
+      // check if the ship wont overlay the board
+      if (coordinates['x'] < 12 - size) {
+        for (int i = coordinates['x'], j = 0; j < size; i++, j++) {
+          board[coordinates['y']][i] = 1;
+        }
+      } else {
+        print('error');
+      }
 		} else if (axis == 'y') {
-			for (int i = coordinates['y'], j = 0; j < size; i++, j++) {
-				board[i][coordinates['x']] = 1;
-			}
+      if (coordinates['y'] < 12 - size) {
+        for (int i = coordinates['y'], j = 0; j < size; i++, j++) {
+          board[i][coordinates['x']] = 1;
+        }
+      } else {
+        print('error');
+      }
 		}
   }
 }

@@ -8,9 +8,8 @@ void main() {
   myBoard.setCoordinates('row');
   myBoard.setCoordinates('col');
 
-  myBoard.placeShip(2, 'x', {'x': 1, 'y': 1});
-  myBoard.placeShip(5, 'y', {'x': 2, 'y': 3});
-  print(myBoard.ships);
+  myBoard.placeShip(4, 'x', {'x': 1, 'y': 1});
+  myBoard.placeShip(5, 'y', {'x': 6, 'y': 6});
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
