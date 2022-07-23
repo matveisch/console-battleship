@@ -5,8 +5,7 @@ class Ship {
 
   int injuredDecks = 0;
   bool sunken = false;
-  // list to store all the coordinates
-  List<Map> coordinatesOnBoard = [];
+  List<Map> coordinatesOnBoard = []; // list to store all the coordinates
 
   Ship(this.size, this.axis, this.coordinates);
 
@@ -15,13 +14,11 @@ class Ship {
 
     if (axis == 'x' && size > 1) {
       for (int i = 1; i < size; i++) {
-        coordinatesOnBoard
-            .add({'x': coordinates['x'] + i, 'y': coordinates['y']});
+        coordinatesOnBoard.add({'x': coordinates['x'] + i, 'y': coordinates['y']});
       }
     } else if (axis == 'y' && size > 1) {
       for (int i = 1; i < size; i++) {
-        coordinatesOnBoard
-            .add({'x': coordinates['x'], 'y': coordinates['y'] + i});
+        coordinatesOnBoard.add({'x': coordinates['x'], 'y': coordinates['y'] + i});
       }
     }
   }

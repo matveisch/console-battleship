@@ -8,6 +8,10 @@ void main() {
   myBoard.setCoordinates('row');
   myBoard.setCoordinates('col');
 
+  myBoard.placeShip(2, 'x', {'x': 1, 'y': 1});
+  myBoard.placeShip(5, 'y', {'x': 2, 'y': 3});
+  print(myBoard.ships);
+
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
   enemyBoard.setCoordinates('row');
@@ -15,9 +19,9 @@ void main() {
 
   printBothBoards(myBoard.board, enemyBoard.board);
 
-  Ship twoDeckShip = new Ship(3, 'y', {'x': 1, 'y': 1});
+  // Ship twoDeckShip = new Ship(3, 'y', {'x': 1, 'y': 1});
   // twoDeckShip.fillUpCoordinates();
-  print(twoDeckShip.coordinatesOnBoard);
+  // print(twoDeckShip.coordinatesOnBoard);
 }
 
 void printBothBoards(List<List<int>> myBoard, List<List<int>> enemyBoard) {
