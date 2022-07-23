@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'lib/Ship.dart';
 
 void main() {
   // creating 11x11 board, including one row and one column for coordinates
@@ -15,11 +15,9 @@ void main() {
 
   printBothBoards(myBoard, enemyBoard);
 
-  Ship twoDeckShip = new Ship(2);
-  twoDeckShip.hitShip();
-  twoDeckShip.hitShip();
-  print(twoDeckShip.injuredDecks);
-  print(twoDeckShip.sunken);
+  Ship twoDeckShip = new Ship(3, 'y', {'x': 1, 'y': 1});
+  twoDeckShip.fillUpCoordinates();
+  print(twoDeckShip.coordinatesOnBoard);
 }
 
 Set<List<List<int>>> createBoard(int size) =>
@@ -46,24 +44,5 @@ void printBothBoards(
 void setCoordinates(Set<List<List<int>>> board, String type) {
   for (int i = 0; i < board.first[0].length; i++) {
     board.first[type == 'row' ? 0 : i][type == 'row' ? i : 0] = i;
-  }
-}
-
-class Ship {
-  int size = 0; // values from 2 to 5
-  bool sunken = false;
-  int injuredDecks = 0;
-
-  Ship(this.size);
-
-  void hitShip() {
-    this.injuredDecks += 1;
-    isSunken();
-  }
-
-  void isSunken() {
-    if (injuredDecks == this.size) {
-      this.sunken = true;
-    }
   }
 }
