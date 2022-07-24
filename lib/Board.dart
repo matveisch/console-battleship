@@ -31,7 +31,7 @@ class Board {
     // ignore: todo
     // TODO error handling when coordinate is bigger than board size
     if (axis == 'x') {
-      // check if the ship wont overlay the board
+      // check if the ship overlays the board
       if (coordinates['x'] < 12 - size) {
         for (int i = coordinates['x'], j = 0; j < size; i++, j++) {
           board[coordinates['y']][i] = 1;
@@ -47,6 +47,36 @@ class Board {
       } else {
         print('error');
       }
+		}
+  }
+
+  void recieveAttack(Map coordinates) {
+    if (board[coordinates['y']][coordinates['x']] == 1) {
+			board[coordinates['y']][coordinates['x']] = 2;
+			for (int i = 0; i < ships.length; i++) {
+				for (int j = 0; j < ships[i].coordinatesOnBoard.length; j++) {
+					if ((ships[i].coordinatesOnBoard[j]['y'] == coordinates['y']) && (ships[i].coordinatesOnBoard[j]['x'] == coordinates['x'])) {
+						ships[i].hitShip();
+						break;
+					}
+				}
+			}
+			checkGameStatus();
+		} else if (board[coordinates['y']][coordinates['x']] == 0) {
+			board[coordinates['y']][coordinates['x']] = 3;
+		}
+  }
+
+  String gameStatus = 'on';
+
+  void checkGameStatus() {
+    gameStatus = 'off';
+
+    for (int i = 0; i < ships.length; i++) {
+			if (ships[i].sunken == false) {
+				gameStatus = 'on';
+				break;
+			}
 		}
   }
 }
