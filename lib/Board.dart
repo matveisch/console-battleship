@@ -20,7 +20,7 @@ class Board {
     }
   }
 
-  void placeShip(int size, String axis, Map coordinates) {
+  void placeShip(int size, String? axis, Map coordinates) {
     // create new ship
     Ship ship = new Ship(size, axis, coordinates);
     ship.fillUpCoordinates();
@@ -28,7 +28,8 @@ class Board {
     // add new ship to array of all ships to be placed
     ships.add(ship);
 
-
+    // ignore: todo
+    // TODO error handling when coordinate is bigger than board size
     if (axis == 'x') {
       // check if the ship wont overlay the board
       if (coordinates['x'] < 12 - size) {

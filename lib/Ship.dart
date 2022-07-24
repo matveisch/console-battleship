@@ -1,6 +1,6 @@
 class Ship {
   int size; // values from 2 to 5
-  String axis;
+  String? axis;
   Map coordinates;
 
   int injuredDecks = 0;
