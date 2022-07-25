@@ -17,19 +17,26 @@ void main() {
   // print('now as all of the ships are placed, it is time for you to attack the enemy');
 
 
-  myBoard.placeShip(5, 'x', {'x': 1, 'y': 1});
-  myBoard.recieveAttack({'x': 1, 'y': 1});
-  myBoard.recieveAttack({'x': 3, 'y': 2});
+  // myBoard.placeShip(5, 'x', {'x': 1, 'y': 1});
+  // myBoard.recieveAttack({'x': 1, 'y': 1});
+  // myBoard.recieveAttack({'x': 3, 'y': 2});
   // myBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
   // myBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
 
-  // Board enemyBoard = new Board(11);
-  // enemyBoard.createBoard();
-  // enemyBoard.setCoordinates('row');
-  // enemyBoard.setCoordinates('col');
+  Board enemyBoard = new Board(11);
+  enemyBoard.createBoard();
+  enemyBoard.setCoordinates('row');
+  enemyBoard.setCoordinates('col');
 
-  printBoard(myBoard.board);
-  // printBothBoards(myBoard.board, enemyBoard.board);
+  // placing ships on enemy's board manually
+  enemyBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
+  enemyBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
+  enemyBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
+  enemyBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
+  enemyBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
+
+  // printBoard(myBoard.board);
+  printBoard(enemyBoard.board);
 }
 
 void printBoard(List<List<int>> board) {
@@ -37,14 +44,6 @@ void printBoard(List<List<int>> board) {
       print(row.join(' '));
     });
   }
-
-void printBothBoards(List<List<int>> myBoard, List<List<int>> enemyBoard) {
-  print('my board');
-  printBoard(myBoard);
-  print('\n');
-  print('enemys board');
-  printBoard(enemyBoard);
-}
 
 // asking iser for coordinates and axis to place ships on his board
 void placeUsersShip(String shipName, Board board, int size) {
