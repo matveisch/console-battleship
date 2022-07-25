@@ -1,9 +1,5 @@
 import 'lib/Board.dart';
 import 'dart:io';
-import 'dart:math';
-
-Random random = new Random();
-int randomNum(int min, int max) => min + random.nextInt(max - min);
 
 void main() {
   // creating 11x11 board, including one row and one column for coordinates
@@ -50,7 +46,7 @@ void main() {
 
 
   // printBoard(myBoard.board);
-  printBoard(enemyBoard.board);
+  // printBoard(enemyBoard.board);
 }
 
 void printBoard(List<List<int>> board) {
