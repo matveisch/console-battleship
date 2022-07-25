@@ -6,6 +6,8 @@ class Board {
 
   // array to store all placed ships
   List<Ship> ships = [];
+  // variable to track state of the game
+  String gameStatus = 'on';
 
   Board(this.size);
 
@@ -50,6 +52,17 @@ class Board {
 		}
   }
 
+  void checkGameStatus() {
+    gameStatus = 'off';
+
+    for (int i = 0; i < ships.length; i++) {
+			if (ships[i].sunken == false) {
+				gameStatus = 'on';
+				break;
+			}
+		}
+  }
+
   void recieveAttack(Map coordinates) {
     if (board[coordinates['y']][coordinates['x']] == 1) {
 			board[coordinates['y']][coordinates['x']] = 2;
@@ -64,19 +77,6 @@ class Board {
 			checkGameStatus();
 		} else if (board[coordinates['y']][coordinates['x']] == 0) {
 			board[coordinates['y']][coordinates['x']] = 3;
-		}
-  }
-
-  String gameStatus = 'on';
-
-  void checkGameStatus() {
-    gameStatus = 'off';
-
-    for (int i = 0; i < ships.length; i++) {
-			if (ships[i].sunken == false) {
-				gameStatus = 'on';
-				break;
-			}
 		}
   }
 }

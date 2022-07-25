@@ -1,5 +1,9 @@
 import 'lib/Board.dart';
 import 'dart:io';
+import 'dart:math';
+
+Random random = new Random();
+int randomNum(int min, int max) => min + random.nextInt(max - min);
 
 void main() {
   // creating 11x11 board, including one row and one column for coordinates
@@ -16,12 +20,7 @@ void main() {
   // placeUsersShip('2-deck Destroyer', myBoard, 2);
   // print('now as all of the ships are placed, it is time for you to attack the enemy');
 
-
-  // myBoard.placeShip(5, 'x', {'x': 1, 'y': 1});
-  // myBoard.recieveAttack({'x': 1, 'y': 1});
-  // myBoard.recieveAttack({'x': 3, 'y': 2});
-  // myBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
-  // myBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
+  myBoard.placeShip(1, 'x', {'x': 1, 'y': 1});
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
@@ -29,11 +28,26 @@ void main() {
   enemyBoard.setCoordinates('col');
 
   // placing ships on enemy's board manually
-  enemyBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
-  enemyBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
-  enemyBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
-  enemyBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
-  enemyBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
+  // enemyBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
+  // enemyBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
+  // enemyBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
+  // enemyBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
+  // enemyBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
+  enemyBoard.placeShip(1, 'x', {'x': 1, 'y': 1});
+
+  while(myBoard.gameStatus == 'on' && enemyBoard.gameStatus == 'on') {
+    attackEnemysShip(enemyBoard);
+    print('enemy attacks...');
+    myBoard.recieveAttack({'x': randomNum(1, 10), 'y': randomNum(1, 10)});
+    printBoard(myBoard.board);
+
+    if (myBoard.gameStatus == 'off') {
+      print('you lose');
+    } else if (enemyBoard.gameStatus == 'off') {
+      print('you win');
+    }
+  }
+
 
   // printBoard(myBoard.board);
   printBoard(enemyBoard.board);
@@ -80,4 +94,13 @@ void placeUsersShip(String shipName, Board board, int size) {
     board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
     printBoard(board.board);
   }
+}
+
+void attackEnemysShip(Board board) {
+  print('please, enter x coordinate');
+  int xCoord = int.parse(stdin.readLineSync() ?? '');
+  print('now type in y coordinate');
+  int yCoord = int.parse(stdin.readLineSync() ?? '');
+  
+  board.recieveAttack({'x': xCoord, 'y': yCoord});
 }
