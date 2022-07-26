@@ -1,4 +1,5 @@
 import 'lib/Board.dart';
+import 'lib/AI.dart';
 import 'dart:io';
 
 void main() {
@@ -16,7 +17,11 @@ void main() {
   // placeUsersShip('2-deck Destroyer', myBoard, 2);
   // print('now as all of the ships are placed, it is time for you to attack the enemy');
 
-  myBoard.placeShip(1, 'x', {'x': 1, 'y': 1});
+  myBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
+  myBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
+  myBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
+  myBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
+  myBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
@@ -31,10 +36,12 @@ void main() {
   // enemyBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
   enemyBoard.placeShip(1, 'x', {'x': 1, 'y': 1});
 
+  AI enemyAI = new AI();
+
   while(myBoard.gameStatus == 'on' && enemyBoard.gameStatus == 'on') {
     attackEnemysShip(enemyBoard);
     print('enemy attacks...');
-    myBoard.recieveAttack({'x': randomNum(1, 10), 'y': randomNum(1, 10)});
+    myBoard.recieveAttack(enemyAI.returnCoordinates(enemyBoard.board));
     printBoard(myBoard.board);
 
     if (myBoard.gameStatus == 'off') {
@@ -43,10 +50,6 @@ void main() {
       print('you win');
     }
   }
-
-
-  // printBoard(myBoard.board);
-  // printBoard(enemyBoard.board);
 }
 
 void printBoard(List<List<int>> board) {
@@ -97,6 +100,21 @@ void attackEnemysShip(Board board) {
   int xCoord = int.parse(stdin.readLineSync() ?? '');
   print('now type in y coordinate');
   int yCoord = int.parse(stdin.readLineSync() ?? '');
+
+  switch (board.board[xCoord][yCoord]) {
+    case 1:
+      print('hit');
+      break;
+    case 0:
+      print('miss');
+      break;
+    case 3:
+      print('you hit that spot previously');
+      break;
+    case 2:
+      print('you already hit that ship');
+      break;
+  }
   
   board.recieveAttack({'x': xCoord, 'y': yCoord});
 }
