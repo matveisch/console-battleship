@@ -41,7 +41,7 @@ void main() {
   while(myBoard.gameStatus == 'on' && enemyBoard.gameStatus == 'on') {
     attackEnemysShip(enemyBoard);
     print('enemy attacks...');
-    myBoard.recieveAttack(enemyAI.returnCoordinates(enemyBoard.board));
+    myBoard.recieveAttack(enemyAI.returnCoordinates(myBoard.board));
     printBoard(myBoard.board);
 
     if (myBoard.gameStatus == 'off') {

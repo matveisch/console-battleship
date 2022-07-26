@@ -17,19 +17,12 @@ class AI {
     if (lastHitSuccessful == false && targets.isEmpty) {
       coordinates = {'x': randomNum(1, 10), 'y': randomNum(1, 10)};
       usedCoordinates.add(coordinates);
-
-      if (board[coordinates['x']][coordinates['y']] == 1) {
-        lastHitSuccessful = true;
-      } else {
-        lastHitSuccessful = false;
-      }
     }
     
     // if last hit successful and there are no presaved targets
     if (lastHitSuccessful == true && targets.isEmpty) {
       // add several coordinates based on last coordinates
-      coordinates = {'x': usedCoordinates.last['x'] + 1, 'y': usedCoordinates.last['y']};
-
+      targets.add({'x': usedCoordinates.last['x'] + 1, 'y': usedCoordinates.last['y']});
       targets.add({'x': usedCoordinates.last['x'], 'y': usedCoordinates.last['y'] + 1});
       targets.add({'x': usedCoordinates.last['x'] - 1, 'y': usedCoordinates.last['y']});
       targets.add({'x': usedCoordinates.last['x'], 'y': usedCoordinates.last['y'] - 1});
@@ -41,8 +34,18 @@ class AI {
       targets.remove(targets.first);
     }
 
+    if (board[coordinates['y']][coordinates['x']] == 1) {
+      lastHitSuccessful = true;
+    } else {
+      lastHitSuccessful = false;
+    }
+
+    // работает. нужно продумать, что делать, когда один из координат из targets подходит – нужно бить по траектории
+
     print(targets);
     print(coordinates);
+    print(lastHitSuccessful);
+    print(board[coordinates['y']][coordinates['x']]);
 
     return coordinates;
   }
