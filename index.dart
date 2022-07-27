@@ -109,10 +109,12 @@ void attackEnemysShip(Board board) {
       print('miss');
       break;
     case 3:
-      print('you hit that spot previously');
+      print('you tried that spot previously. no ship here. try again');
+      attackEnemysShip(board);
       break;
     case 2:
-      print('you already hit that ship');
+      print('you already hit that ship. choose another set of coordinates');
+      attackEnemysShip(board);
       break;
   }
   
