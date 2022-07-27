@@ -29,7 +29,7 @@ class Board {
 
     // add new ship to array of all ships to be placed
     ships.add(ship);
-
+    
     if (axis == 'x') {
       // check if the ship overlays the board
       if (coordinates['x'] < 12 - size) {
@@ -37,7 +37,7 @@ class Board {
           board[coordinates['y']][i] = 1;
         }
       } else {
-        print('error');
+        print('error. ship overlays the board');
       }
 		} else if (axis == 'y') {
       if (coordinates['y'] < 12 - size) {
@@ -45,7 +45,7 @@ class Board {
           board[i][coordinates['x']] = 1;
         }
       } else {
-        print('error');
+        print('error. ship overlays the board');
       }
 		}
   }

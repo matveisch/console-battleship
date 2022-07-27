@@ -115,8 +115,19 @@ void placeUsersShip(String shipName, Board board, int size) {
 void attackEnemysShip(Board board) {
   print('please, enter x coordinate');
   int xCoord = int.parse(stdin.readLineSync() ?? '');
+
+  while (xCoord > 10 || xCoord < 1) {
+    print('x coordinate can only be in range of 1 to 10. try again');
+    xCoord = int.parse(stdin.readLineSync() ?? '');
+  }
+
   print('now type in y coordinate');
   int yCoord = int.parse(stdin.readLineSync() ?? '');
+
+  while (yCoord > 10 || yCoord < 1) {
+    print('y coordinate can only be in range of 1 to 10. try again');
+    yCoord = int.parse(stdin.readLineSync() ?? '');
+  }
 
   switch (board.board[xCoord][yCoord]) {
     case 1:
