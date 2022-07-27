@@ -63,41 +63,52 @@ void placeUsersShip(String shipName, Board board, int size) {
   print('please, enter axis for $shipName (either x or y)');
   String? shipAxis = stdin.readLineSync();
 
-  if (shipAxis != 'x' && shipAxis != 'y') {
+  while (shipAxis != 'x' && shipAxis != 'y') {
     print('only x or y symbols are valid. try arain');
-    placeUsersShip(shipName, board, size);
-  } else {
-    print('now type in starting x coordinate');
-    int xCoord = int.parse(stdin.readLineSync() ?? '');
-    print('now type in starting y coordinate');
-    int yCoord = int.parse(stdin.readLineSync() ?? '');
+    shipAxis = stdin.readLineSync();
+  }
 
-    // if there are any ships on the board
-    if (board.ships.isNotEmpty) {
-      bool isOccupied = false;
+  print('now type in starting x coordinate');
+  int xCoord = int.parse(stdin.readLineSync() ?? '');
 
-      // filtering ships with exact axis
-      board.ships.where((ship) => ship.axis == shipAxis).forEach((ship) {
-        // looping through coordinates
-        ship.coordinatesOnBoard.forEach((element) {
-          // comparing each coordinate with user input
-          if (element['x'] == xCoord && element['y'] == yCoord) {
-            isOccupied = true;
-          }
-        });
+  while (xCoord > 10 || xCoord < 1) {
+    print('x coordinate can only be in range of 1 to 10. try again');
+    xCoord = int.parse(stdin.readLineSync() ?? '');
+  }
+
+  print('now type in starting y coordinate');
+  int yCoord = int.parse(stdin.readLineSync() ?? '');
+
+  while (yCoord > 10 || yCoord < 1) {
+    print('y coordinate can only be in range of 1 to 10. try again');
+    yCoord = int.parse(stdin.readLineSync() ?? '');
+  }
+
+  // if there are any ships on the board
+  if (board.ships.isNotEmpty) {
+    bool isOccupied = false;
+
+    // filtering ships with exact axis
+    board.ships.where((ship) => ship.axis == shipAxis).forEach((ship) {
+      // looping through coordinates
+      ship.coordinatesOnBoard.forEach((element) {
+        // comparing each coordinate with user input
+        if (element['x'] == xCoord && element['y'] == yCoord) {
+          isOccupied = true;
+        }
       });
+    });
 
-      if (isOccupied) {
-        print('sorry, you cannot place ships on each other. choose different coordinates');
-        placeUsersShip(shipName, board, size);
-      } else {
-        board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
-        printBoard(board.board);
-      }
+    if (isOccupied) {
+      print('sorry, you cannot place ships on each other. choose different coordinates');
+      placeUsersShip(shipName, board, size);
     } else {
       board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
       printBoard(board.board);
     }
+  } else {
+    board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
+    printBoard(board.board);
   }
 }
 
