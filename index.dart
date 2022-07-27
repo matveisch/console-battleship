@@ -9,19 +9,19 @@ void main() {
   myBoard.setCoordinates('row');
   myBoard.setCoordinates('col');
 
-  // print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
-  // placeUsersShip('5-deck Carrier', myBoard, 5);
-  // placeUsersShip('4-deck Battleship', myBoard, 4);
-  // placeUsersShip('3-deck Cruiser', myBoard, 3);
-  // placeUsersShip('3-deck Submarine', myBoard, 3);
-  // placeUsersShip('2-deck Destroyer', myBoard, 2);
-  // print('now as all of the ships are placed, it is time for you to attack the enemy');
+  print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
+  placeUsersShip('5-deck Carrier', myBoard, 5);
+  placeUsersShip('4-deck Battleship', myBoard, 4);
+  placeUsersShip('3-deck Cruiser', myBoard, 3);
+  placeUsersShip('3-deck Submarine', myBoard, 3);
+  placeUsersShip('2-deck Destroyer', myBoard, 2);
+  print('now as all of the ships are placed, it is time for you to attack the enemy');
 
-  myBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
-  myBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
-  myBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
-  myBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
-  myBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
+  // myBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
+  // myBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
+  // myBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
+  // myBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
+  // myBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
@@ -62,36 +62,42 @@ void printBoard(List<List<int>> board) {
 void placeUsersShip(String shipName, Board board, int size) {
   print('please, enter axis for $shipName (either x or y)');
   String? shipAxis = stdin.readLineSync();
-  print('now type in starting x coordinate');
-  int xCoord = int.parse(stdin.readLineSync() ?? '');
-  print('now type in starting y coordinate');
-  int yCoord = int.parse(stdin.readLineSync() ?? '');
 
-  // if there are any ships on the board
-  if (board.ships.isNotEmpty) {
-    bool isOccupied = false;
+  if (shipAxis != 'x' && shipAxis != 'y') {
+    print('only x or y symbols are valid. try arain');
+    placeUsersShip(shipName, board, size);
+  } else {
+    print('now type in starting x coordinate');
+    int xCoord = int.parse(stdin.readLineSync() ?? '');
+    print('now type in starting y coordinate');
+    int yCoord = int.parse(stdin.readLineSync() ?? '');
 
-    // filtering ships with exact axis
-    board.ships.where((ship) => ship.axis == shipAxis).forEach((ship) {
-      // looping through coordinates
-      ship.coordinatesOnBoard.forEach((element) {
-        // comparing each coordinate with user input
-        if (element['x'] == xCoord && element['y'] == yCoord) {
-          isOccupied = true;
-        }
+    // if there are any ships on the board
+    if (board.ships.isNotEmpty) {
+      bool isOccupied = false;
+
+      // filtering ships with exact axis
+      board.ships.where((ship) => ship.axis == shipAxis).forEach((ship) {
+        // looping through coordinates
+        ship.coordinatesOnBoard.forEach((element) {
+          // comparing each coordinate with user input
+          if (element['x'] == xCoord && element['y'] == yCoord) {
+            isOccupied = true;
+          }
+        });
       });
-    });
 
-    if (isOccupied) {
-      print('sorry, you cannot place ships on each other. choose different coordinates');
-      placeUsersShip(shipName, board, size);
+      if (isOccupied) {
+        print('sorry, you cannot place ships on each other. choose different coordinates');
+        placeUsersShip(shipName, board, size);
+      } else {
+        board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
+        printBoard(board.board);
+      }
     } else {
       board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
       printBoard(board.board);
     }
-  } else {
-    board.placeShip(size, shipAxis, {'x': xCoord, 'y': yCoord});
-    printBoard(board.board);
   }
 }
 

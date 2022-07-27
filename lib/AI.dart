@@ -51,13 +51,6 @@ class AI {
       lastHitSuccessful = false;
     }
 
-    // работает. нужно продумать, что делать, когда один из координат из targets подходит – нужно бить по траектории
-
-    print(targets);
-    print(coordinates);
-    print(lastHitSuccessful);
-    print(board[coordinates['y']][coordinates['x']]);
-
     usedCoordinates.add(coordinates);
     return coordinates;
   }

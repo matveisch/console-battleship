@@ -30,8 +30,6 @@ class Board {
     // add new ship to array of all ships to be placed
     ships.add(ship);
 
-    // ignore: todo
-    // TODO error handling when coordinate is bigger than board size
     if (axis == 'x') {
       // check if the ship overlays the board
       if (coordinates['x'] < 12 - size) {
