@@ -9,19 +9,20 @@ void main() {
   myBoard.setCoordinates('row');
   myBoard.setCoordinates('col');
 
-  print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
-  placeUsersShip('5-deck Carrier', myBoard, 5);
-  placeUsersShip('4-deck Battleship', myBoard, 4);
-  placeUsersShip('3-deck Cruiser', myBoard, 3);
-  placeUsersShip('3-deck Submarine', myBoard, 3);
-  placeUsersShip('2-deck Destroyer', myBoard, 2);
-  print('now as all of the ships are placed, it is time for you to attack the enemy');
+  // print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
+  // placeUsersShip('5-deck Carrier', myBoard, 5);
+  // placeUsersShip('4-deck Battleship', myBoard, 4);
+  // placeUsersShip('3-deck Cruiser', myBoard, 3);
+  // placeUsersShip('3-deck Submarine', myBoard, 3);
+  // placeUsersShip('2-deck Destroyer', myBoard, 2);
+  // print('now as all of the ships are placed, it is time for you to attack the enemy');
 
   // myBoard.placeShip(5, 'x', {'x': 2, 'y': 1});
   // myBoard.placeShip(4, 'y', {'x': 5, 'y': 4});
   // myBoard.placeShip(3, 'y', {'x': 8, 'y': 4});
   // myBoard.placeShip(3, 'y', {'x': 10, 'y': 4});
   // myBoard.placeShip(2, 'x', {'x': 2, 'y': 9});
+  myBoard.placeShip(1, 'x', {'x': 1, 'y': 1});
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
@@ -42,12 +43,13 @@ void main() {
     attackEnemysShip(enemyBoard);
     print('enemy attacks...');
     myBoard.recieveAttack(enemyAI.returnCoordinates(myBoard.board));
-    printBoard(myBoard.board);
 
     if (myBoard.gameStatus == 'off') {
       print('you lose');
     } else if (enemyBoard.gameStatus == 'off') {
       print('you win');
+    } else {
+      printBoard(myBoard.board);
     }
   }
 }
