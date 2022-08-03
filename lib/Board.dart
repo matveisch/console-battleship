@@ -64,6 +64,7 @@ class Board {
   void recieveAttack(Map coordinates) {
     if (board[coordinates['y']][coordinates['x']] == 1) {
 			board[coordinates['y']][coordinates['x']] = 2;
+
 			for (int i = 0; i < ships.length; i++) {
 				for (int j = 0; j < ships[i].coordinatesOnBoard.length; j++) {
 					if ((ships[i].coordinatesOnBoard[j]['y'] == coordinates['y']) && (ships[i].coordinatesOnBoard[j]['x'] == coordinates['x'])) {
@@ -72,6 +73,7 @@ class Board {
 					}
 				}
 			}
+      
 			checkGameStatus();
 		} else if (board[coordinates['y']][coordinates['x']] == 0) {
 			board[coordinates['y']][coordinates['x']] = 3;

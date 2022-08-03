@@ -1,5 +1,7 @@
 import 'lib/Board.dart';
 import 'lib/AI.dart';
+import 'lib/RandomAI.dart';
+
 import 'dart:io';
 
 void main() {
@@ -9,18 +11,16 @@ void main() {
   myBoard.setCoordinates('row');
   myBoard.setCoordinates('col');
 
-  print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
-  placeUsersShip('5-deck Carrier', myBoard, 5);
-  placeUsersShip('4-deck Battleship', myBoard, 4);
-  placeUsersShip('3-deck Cruiser', myBoard, 3);
-  placeUsersShip('3-deck Submarine', myBoard, 3);
-  placeUsersShip('2-deck Destroyer', myBoard, 2);
-  print('now as all of the ships are placed, it is time for you to attack the enemy');
+  // print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
+  // placeShipsFromTheList(myBoard, false);
+  // print('now as all of the ships are placed, it is time for you to attack the enemy');
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
   enemyBoard.setCoordinates('row');
   enemyBoard.setCoordinates('col');
+
+  placeShipsFromTheList(enemyBoard, true);
 
   AI enemyAI = new AI();
 
@@ -135,3 +135,46 @@ void attackEnemysShip(Board board) {
   
   board.recieveAttack({'x': xCoord, 'y': yCoord});
 }
+
+void placeShipsFromTheList(Board board, bool enemy) {
+    List<Map> shipsToPlace = [
+        {
+          'size': 5,
+          'name': 'Carrier'
+        },
+        {
+          'size': 4,
+          'name': 'Battleship'
+        },
+        {
+          'size': 3,
+          'name': 'Cruiser'
+        },
+        {
+          'size': 3,
+          'name': 'Submarine'
+        },
+        {
+          'size': 2,
+          'name': 'Destroyer'
+        },
+      ];
+
+    if (enemy) {
+      RandomAI randomAI = new RandomAI();
+
+      shipsToPlace.forEach((ship) {
+        randomAI.generateRandomAxis();
+        randomAI.generateRandomCoordinates(ship['size'], board.board);
+
+        board.placeShip(ship['size'], randomAI.randomAxis, randomAI.randomCoordinates);
+        print(randomAI.randomCoordinates);
+        printBoard(board.board);
+      });
+    } else {
+      shipsToPlace.forEach((ship) {
+        placeUsersShip(ship['name'], board, ship['size']);
+      });
+    }
+
+  }
