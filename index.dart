@@ -11,9 +11,9 @@ void main() {
   myBoard.setCoordinates('row');
   myBoard.setCoordinates('col');
 
-  // print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
-  // placeShipsFromTheList(myBoard, false);
-  // print('now as all of the ships are placed, it is time for you to attack the enemy');
+  print('it is time to place your ships. there are 5 of them: 5-deck Carrier, 4-deck Battleship, 3-deck Cruiser, 3-deck Submarine and 2-deck Destroyer');
+  placeShipsFromTheList(myBoard, false);
+  print('now as all of the ships are placed, it is time for you to attack the enemy');
 
   Board enemyBoard = new Board(11);
   enemyBoard.createBoard();
@@ -168,8 +168,6 @@ void placeShipsFromTheList(Board board, bool enemy) {
         randomAI.generateRandomCoordinates(ship['size'], board.board);
 
         board.placeShip(ship['size'], randomAI.randomAxis, randomAI.randomCoordinates);
-        print(randomAI.randomCoordinates);
-        printBoard(board.board);
       });
     } else {
       shipsToPlace.forEach((ship) {
